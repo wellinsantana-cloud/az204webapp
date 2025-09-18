@@ -1,0 +1,12 @@
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\Az204Api.exe
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\appsettings.Development.json
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\appsettings.json
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\Az204Api.dll
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\Az204Api.deps.json
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\Az204Api.runtimeconfig.json
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\Az204Api.pdb
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\Microsoft.OpenApi.dll
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\wellin.santana-ad\Desktop\Project\Az204Api\Az204Api\publush\Swashbuckle.AspNetCore.SwaggerUI.dll
