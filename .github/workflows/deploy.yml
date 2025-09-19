@@ -22,7 +22,7 @@ jobs:
         run: rm -rf ./output
 
       - name: Publish
-        run: dotnet publish Az204Api.csproj --configuration Release --output ./output
+        run: dotnet publish Az204Api.csproj --configuration Release --output ./output --self-contained false
 
       - name: List published files
         run: ls -R ./output
