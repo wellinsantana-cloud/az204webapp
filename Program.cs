@@ -1,6 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Swagger siempre activo
+// Agregar soporte para Swagger siempre
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -10,31 +10,15 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// HTTPS y redirección
-app.UseHttpsRedirection();
-
-// Página HTML en la raíz
-app.MapGet("/", async context =>
-{
-    var html = """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>API Az204</title>
-    </head>
-    <body>
-        <h1>🚀 Bienvenido a la API Az204</h1>
-        <p>Visita <a href="/swagger">Swagger UI</a> para explorar los endpoints.</p>
-        <p>También puedes probar <a href="/weatherforecast">/weatherforecast</a> directamente.</p>
-    </body>
-    </html>
-    """;
-    context.Response.ContentType = "text/html";
-    await context.Response.WriteAsync(html);
-});
+// Redirigir la raíz "/" a Swagger
+app.MapGet("/", () => Results.Redirect("/swagger"));
 
 // Endpoint de ejemplo
-var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
+var summaries = new[]
+{
+    "Freezing", "Bracing", "Chilly", "Cool", "Mild",
+    "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+};
 
 app.MapGet("/weatherforecast", () =>
 {
@@ -44,7 +28,8 @@ app.MapGet("/weatherforecast", () =>
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             Random.Shared.Next(-20, 55),
             summaries[Random.Shared.Next(summaries.Length)]
-        )).ToArray();
+        ))
+        .ToArray();
     return forecast;
 })
 .WithName("GetWeatherForecast")
