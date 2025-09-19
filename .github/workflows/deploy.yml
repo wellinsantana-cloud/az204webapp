@@ -1,38 +1,15 @@
-name: Deploy to Azure WebApp
+- name: Clean output folder
+  run: rm -rf ./output
 
-on:
-  push:
-    branches:
-      - main
+- name: Publish
+  run: dotnet publish Az204Api.csproj --configuration Release --output ./output
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+- name: List published files
+  run: ls -R ./output
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Restore dependencies
-        run: dotnet restore Az204Api.csproj
-
-      - name: Build
-        run: dotnet build Az204Api.csproj --configuration Release --no-restore
-
-      - name: Publish
-        run: dotnet publish Az204Api.csproj --configuration Release --output ./publish
-
-      - name: Deploy to Azure WebApp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: az204webapp17949
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./publish
-
-      - name: List published files
-        run: ls -R ./publish
+- name: Deploy to Azure WebApp
+  uses: azure/webapps-deploy@v2
+  with:
+    app-name: az204webapp17949
+    publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+    package: ./output
