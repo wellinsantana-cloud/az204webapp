@@ -1,38 +1,50 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Swagger siempre activo
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Activar Swagger en todos los entornos
+app.UseSwagger();
+app.UseSwaggerUI();
 
+// HTTPS y redirección
 app.UseHttpsRedirection();
 
-var summaries = new[]
+// Página HTML en la raíz
+app.MapGet("/", async context =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var html = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>API Az204</title>
+    </head>
+    <body>
+        <h1>🚀 Bienvenido a la API Az204</h1>
+        <p>Visita <a href="/swagger">Swagger UI</a> para explorar los endpoints.</p>
+        <p>También puedes probar <a href="/weatherforecast">/weatherforecast</a> directamente.</p>
+    </body>
+    </html>
+    """;
+    context.Response.ContentType = "text/html";
+    await context.Response.WriteAsync(html);
+});
 
-app.MapGet("/", () => "API funcionando 🚀");
+// Endpoint de ejemplo
+var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             Random.Shared.Next(-20, 55),
             summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
+        )).ToArray();
     return forecast;
 })
 .WithName("GetWeatherForecast")
