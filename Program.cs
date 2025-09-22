@@ -13,6 +13,12 @@ app.UseSwaggerUI();
 // Redirigir la raíz "/" a Swagger
 app.MapGet("/", () => Results.Redirect("/swagger"));
 
+app.MapGet("/fail", () =>
+{
+    Console.WriteLine("⚠️ Generando error intencional...");
+    throw new Exception("Error de prueba para logging");
+});
+
 // Endpoint de ejemplo
 var summaries = new[]
 {
